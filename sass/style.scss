@@ -3,8 +3,8 @@
 /* Variables */
 
 $color-light: #fff;
-$color-dark: #444;
-
+$color-dark: #2C3A47;
+$color-main: #9AECDB;
 $font-logo: 'Sacramento', cursive;
 $font-header: 'Oswald', sans-serif;
 $font-text: 'Source Sans Pro', sans-serif;
@@ -16,7 +16,9 @@ $font-text: 'Source Sans Pro', sans-serif;
 }
 
 body {
-  background: $color-light;
+  //background: $color-dark;
+  background-image: url("https://i.postimg.cc/C54F6T0n/pexels-vishal-amin-910307.jpg");
+  background-size: cover;
   font-family: $font-text;
   color: $color-dark;
   font-weight: 300;
@@ -34,7 +36,7 @@ body {
   text-transform: uppercase;
   font-family: $font-header;
   font-weight: 600;
-  span {
+    span {
     text-transform: none;
     font-weight: 400;
     color: lighten($color-dark, 20%);
@@ -54,14 +56,17 @@ body {
 
 .posts {
   flex: 2 0 0;
+  position: relative;
+  
 }
 
 .sidebar, .posts {
   background: $color-light;
   margin-right: 10px;
   padding: 40px;
-  border: 1px solid $color-dark;
+  border: 1px solid #fff;
   border-radius: 5px;
+  min-height: 750px;
 }
 
 /* Logo */
@@ -72,6 +77,7 @@ body {
   font-size: 104px;
   line-height: 1;
   text-align: center;
+  color: $color-dark;
 }
 
 /* Lists */
@@ -83,6 +89,31 @@ body {
   .active {
     font-weight: bold;
   }
+}
+
+.sidebar ul {
+  display: flex;
+  flex-direction: column;
+  align-items: space-around;
+}
+
+
+
+.list a {
+  text-decoration: none;
+  color: #58B19F;
+  //font-size: 20px;
+}
+.list a:hover {
+  color: #55E6C1;
+}
+
+.sidebar a {
+  font-size: 20px;
+}
+
+.sidebar li {
+  margin-right: 20px;
 }
 
 .list-horizontal {
@@ -101,11 +132,25 @@ body {
 
 /* Post */
 
-.post {
+/*.post {
   display: none;
   &.active {
     display: block;
   }
+}*/
+
+.post {
+  position: absolute;
+  opacity: 0;
+  z-index: 0;
+  //max-width: 80%;
+  &.active {
+  opacity: 1;
+  z-index: 2;
+  max-width: 85%;
+  transition: opacity 1s ease-in-out;
+  
+}
 }
 
 .post-author {
@@ -116,5 +161,43 @@ body {
   display: flex;
   p {
     margin: 0 10px 0 0;
+  }
+}
+
+@media (max-width: 575px) {
+  .wrapper {
+    flex-direction: column;
+  }
+  .sidebar ul {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    //align-content: flex-start;
+  }
+  .sidebar {
+    min-height: 400px;
+  }
+  .sidebar:first-of-type {
+    min-height: 300px;
+  }
+}
+
+
+
+@media (min-width: 576px) and (max-width: 767px) {
+  .wrapper {
+    flex-direction: column;
+  }
+  .sidebar ul {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    //align-content: flex-start;
+  }
+  .sidebar {
+    min-height: 350px;
+  }
+  .sidebar:first-of-type {
+    min-height: 200px;
   }
 }
