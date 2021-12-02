@@ -4,7 +4,8 @@
 
 $color-light: #fff;
 $color-dark: #2C3A47;
-$color-main: #9AECDB;
+$color-link: #58B19F;
+$color-link-hover: #55E6C1;  
 $font-logo: 'Sacramento', cursive;
 $font-header: 'Oswald', sans-serif;
 $font-text: 'Source Sans Pro', sans-serif;
@@ -99,11 +100,11 @@ body {
 
 .list a {
   text-decoration: none;
-  color: #58B19F;
+  color: $color-link;
 }
 
 .list a:hover {
-  color: #55E6C1;
+  color: $color-link-hover;
 }
 
 .sidebar a {
@@ -140,8 +141,14 @@ body {
   }
 }
 
-.post-author {
+.post-author a {
   font-style: italic;
+  color: $color-link;
+  text-decoration: none;
+}
+
+.post-author a:hover {
+  color: $color-link-hover;
 }
 
 .post-tags {
