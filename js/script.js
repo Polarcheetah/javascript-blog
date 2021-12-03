@@ -48,6 +48,10 @@ const optTitleListSelector = '.titles';
 const optArticleTagsSelector = '.post-tags .list';
 const optArticleAuthorSelector = '.post-author';
 const optTagsListSelector = '.tags.list';
+const optCloudClassCount = 5;
+const optCloudClassPrefix = 'tag-size-';
+
+
 
 function generateTitleLinks(customSelector = ''){
   console.log(`custom selector: ${customSelector}`);
@@ -90,6 +94,25 @@ function generateTitleLinks(customSelector = ''){
 generateTitleLinks();
 
 /***************************************    Tag links    ******************************************/
+
+function calculateTagsParams(tags) {
+  /* create a new object params with min and max */
+  const params = {max: 0, min: 999999};
+  /* START LOOP: for each tag */
+  for (let tag in tags) {
+    console.log(`${tag} is used ${tags[tag]} times`);
+
+    /* Find max value of tags[tag]*/
+    params.max = Math.max(tags[tag], params.max);
+
+    /* Find min value of tags[tag]*/
+    params.min = Math.min(tags[tag], params.min);
+  }
+  /* return object params */
+  return params;
+}
+
+
 function generateTags(){
   /* [NEW] create a new variable allTags with an empty object */
   let allTags = {};
@@ -141,20 +164,37 @@ function generateTags(){
   /* [NEW] add html from allTags to tagList */
   //tagList.innerHTML = allTags.join(' ');
   console.log(allTags);
+  /* [NEW] create new const - tagsParams */
+  const tagsParams = calculateTagsParams(allTags);
+  console.log('tagsParams:', tagsParams);
   /* [NEW] Create variable for all links HTML code */
   let allTagsHTML = '';
 
   /* [NEW] START LOOP: for each tag in allTags*/
   for (let tag in allTags){
-    // eslint-disable-next-line no-unused-vars
-    //allTagsHTML += tag + ' (' + allTags[tag] + ') ';
-    allTagsHTML += `<li><a href="#tag-${tag}">${tag} (${allTags[tag]})</a></li>` ;
+    
+    const tagLinkHTML = `<li><a href="#tag-${tag}" class="${calculateTagClass(allTags[tag], tagsParams)}">${tag} (${allTags[tag]})</a></li>`;
+    console.log('tagLinkHTML:', tagLinkHTML);
+    allTagsHTML += tagLinkHTML;
+    //`<li><a href="#tag-${tag}">${tag} (${allTags[tag]})</a></li>` ;
     /*END LOOP: for each tag in allTags*/
     //console.log(allTagsHTML);
   }
   /* [NEW] add HTML from allTagsHTML to tagList*/
   tagList.innerHTML = allTagsHTML;
   console.log(tagList);
+}
+
+
+function calculateTagClass(count, params) {
+  const normalizedCount = count - params.min;
+  const normalizedMax = params.max - params.min;
+  const percentage = normalizedCount / normalizedMax;
+  const classNumber = Math.floor( percentage * (optCloudClassCount - 1) + 1 );
+  const className = optCloudClassPrefix + classNumber;
+  console.log(className);
+  return className;
+  
 }
 generateTags();
 
