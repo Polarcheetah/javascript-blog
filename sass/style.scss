@@ -94,8 +94,9 @@ body {
 
 .sidebar ul {
   display: flex;
-  flex-direction: column;
-  align-items: space-around;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: flex-end;
 }
 
 .list a {
@@ -126,16 +127,21 @@ a.tag-size-1 {
 }
 a.tag-size-2 {
   font-size: 19px;
+  color: darken($color-link, 5%);
 }
 a.tag-size-3 {
   font-size: 22px;
+  color: darken($color-link, 10%);
 }
 a.tag-size-4 {
   font-size: 25px;
+  color: darken($color-link, 15%);
 }
 a.tag-size-5 {
   font-size: 28px;
+  color: darken($color-link, 20%);
 }
+
 
 /* Authors */
 
