@@ -1,5 +1,12 @@
 'use strict';
 
+const templates = {
+  articleLink: Handlebars.compile(document.querySelector('#template-article-link').innerHTML),
+  tagLink: Handlebars.compile(document.querySelector('#template-tag-link').innerHTML),
+  authorLink: Handlebars.compile(document.querySelector('#template-author-link').innerHTML),
+  tagCloudLink: Handlebars.compile(document.querySelector('#template-tag-cloud-link').innerHTML),
+}
+
 const opts = {
   articleSelector: '.post',
   titleListSelector: '.titles',
@@ -73,7 +80,9 @@ function generateTitleLinks(customSelector = ''){
     //console.log(articleTitle);
 
     /* create HTML of the link */
-    const linkHTML = `<li><a href="#${articleId}"><span>${articleTitle}</span></a></li>`;
+    //const linkHTML = `<li><a href="#${articleId}"><span>${articleTitle}</span></a></li>`;
+    const linkHTMLData = {id: articleId, title: articleTitle};
+    const linkHTML = templates.articleLink(linkHTMLData);
     //console.log(linkHTML);
 
     /* insert link into titleList */
@@ -133,7 +142,10 @@ function generateTags(){
     /* START LOOP: for each tag */
     for (let tag of articleTagsArray){
       /* generate HTML of the link */
-      const linkHTML = `<li><a href="#tag-${tag}">${tag}</a></li>`;
+      //const linkHTML = `<li><a href="#tag-${tag}">${tag}</a></li>`;
+
+      const linkHTMLData = {tagName: tag};
+      const linkHTML = templates.tagLink(linkHTMLData);
       
       /* add generated code to html variable */
       html = html + linkHTML;
@@ -164,19 +176,27 @@ function generateTags(){
   console.log('tagsParams:', tagsParams);
 
   /* [NEW] Create variable for all links HTML code */
-  let allTagsHTML = '';
+  //let allTagsHTML = '';
+  const allTagsData = {tags: []};
 
   /* [NEW] START LOOP: for each tag in allTags*/
   for (let tag in allTags){
     
-    const tagLinkHTML = `<li><a href="#tag-${tag}" class="${calculateTagClass(allTags[tag], tagsParams)}">${tag}</a></li>`;
-    console.log('tagLinkHTML:', tagLinkHTML);
-    allTagsHTML += tagLinkHTML;
+    //const tagLinkHTML = `<li><a href="#tag-${tag}" class="${calculateTagClass(allTags[tag], tagsParams)}">${tag}</a></li>`;
+    //console.log('tagLinkHTML:', tagLinkHTML);
+    //allTagsHTML += tagLinkHTML;
+
+    allTagsData.tags.push({
+      tag: tag,
+      count: allTags[tag],
+      className: calculateTagClass(allTags[tag], tagsParams)
+    });
     /*END LOOP: for each tag in allTags*/
     //console.log(allTagsHTML);
   }
   /* [NEW] add HTML from allTagsHTML to tagList*/
-  tagList.innerHTML = allTagsHTML;
+  tagList.innerHTML = templates.tagCloudLink(allTagsData);
+  console.log(allTagsData);
   console.log(tagList);
 }
 
@@ -277,7 +297,10 @@ function generateAuthors(){
     }
 
     /* generate HTML of the link */
-    const linkHTML = `<a href="#author-${articleAuthor}">${articleAuthor}</a>`;
+    //const linkHTML = `<a href="#author-${articleAuthor}">${articleAuthor}</a>`;
+
+    const linkHTMLData = {authorName: articleAuthor};
+    const linkHTML = templates.authorLink(linkHTMLData);
 
     /* add generated code to html variable */
     html = html + linkHTML;
