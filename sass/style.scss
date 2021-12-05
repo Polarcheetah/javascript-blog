@@ -198,30 +198,7 @@ a.tag-size-5 {
   color: $color-link-hover;
 }
 
-@media (max-width: 575px) {
-  .wrapper {
-    flex-direction: column;
-  }
-
-  .sidebar ul {
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-  }
-
-  .sidebar:first-of-type ul {
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-  }
-
-  .sidebar,
-  .posts {
-    margin-bottom: 10px;
-  }
-}
-
-@media (min-width: 576px) and (max-width: 767px) {
+@media (max-width: 767px) {
   .wrapper {
     flex-direction: column;
   }
