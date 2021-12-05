@@ -60,8 +60,6 @@ body {
 
 .posts {
   flex: 2 0 0;
-  position: relative;
-  overflow: auto;
 }
 
 .sidebar,
@@ -71,7 +69,6 @@ body {
   padding: 40px;
   border: 1px solid #fff;
   border-radius: 5px;
-  min-height: 750px;
 }
 
 /* Logo */
@@ -130,6 +127,32 @@ body {
     display: inline-block;
   }
 }
+/* Article */
+
+.post {
+  transition: opacity 1s ease-in-out;
+  opacity: 0;
+  height: 0;
+  overflow: hidden;
+
+  &.active {
+    max-width: 85%;
+    opacity: 1;
+    height: auto;
+  }
+}
+
+.post-tags {
+  display: flex;
+
+  p {
+    margin: 0 10px 0 0;
+  }
+
+  a {
+    margin: 0 10px 0 0;
+  }
+}
 
 /*Tags*/
 
@@ -165,19 +188,6 @@ a.tag-size-5 {
   }
 }
 
-.post {
-  position: absolute;
-  opacity: 0;
-  z-index: 0;
-
-  &.active {
-    opacity: 1;
-    z-index: 2;
-    max-width: 85%;
-    transition: opacity 1s ease-in-out;
-  }
-}
-
 .post-author a {
   font-style: italic;
   color: $color-link;
@@ -186,18 +196,6 @@ a.tag-size-5 {
 
 .post-author a:hover {
   color: $color-link-hover;
-}
-
-.post-tags {
-  display: flex;
-
-  p {
-    margin: 0 10px 0 0;
-  }
-
-  a {
-    margin: 0 10px 0 0;
-  }
 }
 
 @media (max-width: 575px) {
@@ -211,16 +209,10 @@ a.tag-size-5 {
     justify-content: flex-start;
   }
 
-  .sidebar {
-    min-height: 450px;
-  }
-
-  .sidebar:first-of-type {
-    min-height: 300px;
-  }
-
-  .posts {
-    min-height: 600px;
+  .sidebar:first-of-type ul {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
   }
 
   .sidebar,
@@ -240,16 +232,10 @@ a.tag-size-5 {
     justify-content: flex-start;
   }
 
-  .sidebar {
-    min-height: 400px;
-  }
-
-  .sidebar:first-of-type {
-    min-height: 200px;
-  }
-
-  .posts {
-    min-height: 600px;
+  .sidebar:first-of-type ul {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
   }
 
   .sidebar,
